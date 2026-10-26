@@ -47,6 +47,11 @@ create an exam in the timetable, and inspect the resulting blocks. The timetable
 and room-board PNGs in `docs/screenshots/` are actual screenshots of those actions.
 No browser JavaScript errors were observed in that preview.
 
+Local review follow-up: the effective-free-time green rails were hidden with CSS,
+and the footer/cached stylesheet URL updated. Browser inspection confirmed zero
+visible rails and all four existing exam/session/busy blocks retained. This visual
+change was checked in the browser; the full-suite result above predates that CSS edit.
+
 ## Not verified here
 
 Live PostgreSQL/Supabase operations, production RLS effectiveness, multi-worker

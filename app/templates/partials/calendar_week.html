@@ -32,7 +32,7 @@
         {% endfor %}
       </div>
     </div>
-    <p id="calendar-selection-status" class="calendar-zone" role="status">{% if availability.calendar.verification_level == "unknown" %}Availability needs recalculating. Reload this page before using free time.{% else %}Click or drag to create time · click a saved block to edit · green marks effective free time.{% endif %}</p>
+    <p id="calendar-selection-status" class="calendar-zone" role="status">{% if availability.calendar.verification_level == "unknown" %}Availability needs recalculating. Reload this page before using free time.{% else %}Click or drag to create time · click a saved block to edit · joined sessions update automatically.{% endif %}</p>
   </section>
 </div>
 <script id="calendar-week-data" type="application/json">{{ {"week":calendar_week,"csrf":editor_csrf} | tojson }}</script>
