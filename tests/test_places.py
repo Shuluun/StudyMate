@@ -184,6 +184,20 @@ def test_suggest_places_falls_back_to_seeded_places_when_offline():
     assert {row["name"] for row in rows} <= {p["name"] for p in store.places()}
 
 
+def test_place_hours_do_not_inherit_the_server_timezone(monkeypatch):
+    class WallTime(datetime):
+        def astimezone(self, tz=None):
+            if self.tzinfo is None:
+                raise AssertionError('Local wall times must be resolved before timezone conversion')
+            return super().astimezone(tz)
+
+    monkeypatch.setattr(matching_core.live_places, 'nearby',
+        lambda kind, lat, lng, radius: [p for p in REAL if p['kind']==kind])
+    rows=matching_core.suggest_places('coffee',[profile()],WallTime(2026,10,27,19),WallTime(2026,10,27,21),preferred=['library'])
+    assert rows[0]['name']=='Mystery Cafe'
+    assert rows[-1]['name']=='Early Cafe' and rows[-1]['open'] is False
+
+
 def test_reason_skips_rating_when_the_source_has_none(monkeypatch):
     monkeypatch.setattr(matching_core.live_places, "nearby", lambda kind, lat, lng, radius: [p for p in REAL if p["kind"] == kind])
     rows = matching_core.suggest_places("library", [profile()], TUESDAY_7PM, TUESDAY_9PM)

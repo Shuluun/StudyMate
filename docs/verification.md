@@ -73,6 +73,12 @@ Windows file-lock during temporary SQLite cleanup was addressed with bounded
 retries on the tool's own verified scratch directory, then the smoke was rerun
 successfully. Database or service failures are not ignored by this retry.
 
+Publication follow-up: the first Linux CI matrix exposed a legacy place-hours
+boundary that converted naive datetimes using the server timezone. That boundary
+now uses the same IANA wall-time resolver as Calendar, and has a regression test
+that rejects implicit host-timezone conversion. The updated suite has 432 cases.
+Refer to the personal repository's Actions run for the actual matrix result.
+
 The export uses an allowlist and checks credential-like content; database files,
 SQLite journals, `.env`, key files, nested ZIPs, CSV exports, caches and virtual
 environments are excluded. The generated manifest hashes each file, records the

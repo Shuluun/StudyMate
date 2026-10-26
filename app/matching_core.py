@@ -249,8 +249,8 @@ def _clock(hour: str, minute: str | None, meridiem: str | None) -> time | None:
 
 def _note_time(text: str, start: datetime, end: datetime) -> tuple[datetime, datetime] | None:
     original_start, original_end = start, end
-    start = start.astimezone(ZoneInfo(display_zone()))
-    end = end.astimezone(ZoneInfo(display_zone()))
+    start = parse_instant(start).astimezone(ZoneInfo(display_zone()))
+    end = parse_instant(end).astimezone(ZoneInfo(display_zone()))
     day = start.date()
     weekday = WEEKDAY.search(text)
     if weekday:
@@ -481,7 +481,7 @@ def pick_group(ranked: list[Candidate], needed: int, min_len: timedelta, earlies
 
 
 def _is_open(place: dict, start: datetime, end: datetime) -> bool:
-    start, end = start.astimezone(ZoneInfo(display_zone())), end.astimezone(ZoneInfo(display_zone()))
+    start, end = parse_instant(start).astimezone(ZoneInfo(display_zone())), parse_instant(end).astimezone(ZoneInfo(display_zone()))
     if "opens" not in place:
         return True
     if start.date() != end.date():
@@ -521,7 +521,7 @@ def suggest_places(
     avoid = avoid or set()
     preferred = preferred or []
     kinds = [kind for kind in dict.fromkeys([place_type, *preferred]) if kind in PLACE_LABELS and kind not in avoid]
-    local_start, local_end = start.astimezone(ZoneInfo(display_zone())), end.astimezone(ZoneInfo(display_zone()))
+    local_start, local_end = parse_instant(start).astimezone(ZoneInfo(display_zone())), parse_instant(end).astimezone(ZoneInfo(display_zone()))
     rows = []
     for place in _real_places(kinds, people) or places():
         trips = [_meters(p.anchor_lat, p.anchor_lng, place["lat"], place["lng"]) for p in people]
