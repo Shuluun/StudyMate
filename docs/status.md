@@ -15,7 +15,7 @@ test verifies SQLite persistence, without contacting Supabase.
 | Omnara | Optional clients; disabled/mocked here; matching prompt remains stand-in |
 | Google Calendar, live email and venue booking | Not enabled in ordinary application |
 | Public website | No deployment performed by this release task |
-| GitHub Actions matrix | Workflow supplied; remote results require a future push |
+| GitHub Actions matrix | Runs on the [personal fork](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml); inspect the latest commit's result |
 
 ## Known limitations
 

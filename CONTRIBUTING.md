@@ -16,4 +16,4 @@ Keep ownership in the existing modules; do not add a second identity or booking 
 Include the problem, final change, actual tests and remaining limits in a PR.
 Keep keys, `.env`, OAuth JSON, tokens, real schedules, account exports, databases
 and logs out of commits. Source export scans the current file set, not all history.
-The supplied CI workflow has to run remotely before its matrix can be called verified.
+Check the personal fork's latest Actions run before describing its CI matrix as verified.

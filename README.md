@@ -1,5 +1,7 @@
 # StudyMate
 
+[![Tests](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml/badge.svg)](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml)
+
 **A study-group planner that checks availability before suggesting a session.**
 
 StudyMate brings student profiles, an editable timetable, room discovery, and group

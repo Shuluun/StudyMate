@@ -56,8 +56,9 @@ change was checked in the browser; the full-suite result above predates that CSS
 
 Live PostgreSQL/Supabase operations, production RLS effectiveness, multi-worker
 room races, public hosting, live Omnara quality/latency, real Google Calendar,
-email delivery and venue booking are not claimed. The workflow's Linux/Python
-matrix is a future CI configuration, not a completed remote run. Two current
+email delivery and venue booking are not claimed. Publication now executes the
+[Linux/Python matrix on GitHub](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml);
+the linked run/commit determines its observed status. Two current
 dependency deprecation warnings concern HTTPX integrations; they are not test failures.
 
 ## Exported-copy verification
