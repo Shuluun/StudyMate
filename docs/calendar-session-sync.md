@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # Session → Schedule integration
 
 Built from main `e2b1f58`, retaining the existing timetable and Session room lifecycle.
@@ -13,10 +15,10 @@ Built from main `e2b1f58`, retaining the existing timetable and Session room lif
 From `team-integration/calendar-team-start`, using Python 3.13.5 in the existing environment:
 
 ```powershell
-& ..\Agent_Hackathon\.venv\Scripts\python.exe -m pytest -q tests/test_session_schedule_sync.py tests/test_calendar_room_guards.py --basetemp=.tmp/session-sync-targeted --tb=short
+& .venv\Scripts\python.exe -m pytest -q tests/test_session_schedule_sync.py tests/test_calendar_room_guards.py --basetemp=.tmp/session-sync-targeted --tb=short
 # 23 passed
 node --check app/static/calendar.js
-& ..\Agent_Hackathon\.venv\Scripts\python.exe -m pytest -q --basetemp=.tmp/session-sync-final --junitxml=.tmp/session-sync-results-final.xml --tb=short
+& .venv\Scripts\python.exe -m pytest -q --basetemp=.tmp/session-sync-final --junitxml=.tmp/session-sync-results-final.xml --tb=short
 # 383 passed, 2 dependency deprecation warnings
 ```
 
@@ -27,8 +29,8 @@ Local preview startup, preserving the existing Calendar SQLite data:
 ```powershell
 $env:PYTHONUTF8='1'
 $env:STUDYMATE_CALENDAR_MODE='synthetic'
-$env:STUDYMATE_CALENDAR_DB='sqlite+pysqlite:///C:/Users/shulu/Desktop/StudyMate_Calendar_Standalone_v2/team-integration/calendar-team-start/data/calendar-main-demo.db'
-& ..\Agent_Hackathon\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8020 --no-access-log
+$env:STUDYMATE_CALENDAR_DB='sqlite+pysqlite:///./data/calendar-main-demo.db'
+& .venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8020 --no-access-log
 ```
 
 ## Remaining integration dependency

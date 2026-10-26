@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # M2 read-only Google Calendar — implementation and live boundary
 
 Historical M2 baseline below. The newer private user connection host and actual

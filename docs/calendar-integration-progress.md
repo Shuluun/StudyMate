@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # Calendar integration execution record
 
 2026-10-24. Original standalone M0/M1 stays at the parent workspace, untouched. Team checkout: `team-integration/Agent_Hackathon`. Local implementation branch: `feat/shulun-calendar-integration`; remote destination requested by the user: their existing `shuluun` branch. No main push, PR merge, deployment or real calendar operation.

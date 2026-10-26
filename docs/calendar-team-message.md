@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 Calendar M3 and the week/day timetable are ready for review in Draft PR #2. Scheduling, Matching time reads and Session conflict checks still share the same saved data. The request-start and Send handlers now invoke the refresh hook.
 
 The export executor has independent current-version approval, primary-calendar-only writes, persistent deduplication/reconciliation, and separately confirmed removal. Tests use mocked Google HTTP and server Session doubles; no real Google read/write/delete or deployment has been verified, and live export remains disabled in the demo.

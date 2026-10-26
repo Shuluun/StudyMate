@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # Calendar integration — M1.5/M2 baseline
 
 Current M3 executor, interactive week/day UI, actual team hook wiring and remaining live gates are described in [calendar-writeback-handoff.md](calendar-writeback-handoff.md). The test counts below are the M1.5/M2 checkpoint; the current results are in calendar-integration-progress.md.

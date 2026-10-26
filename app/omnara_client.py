@@ -20,6 +20,8 @@ class OmnaraError(Exception):
 
 
 def _settings() -> dict[str, str]:
+    if os.getenv("STUDYMATE_OFFLINE") == "1":
+        raise OmnaraError("Offline demo: external model calls are disabled.")
     values: dict[str, str] = {}
     path = Path(__file__).resolve().parent.parent / ".env"
     if path.exists():

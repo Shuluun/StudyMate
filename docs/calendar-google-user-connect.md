@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # Archived Google Calendar prototype
 
 Retired from the normal StudyMate application on 2026-10-24 at the owner's request.

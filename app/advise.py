@@ -95,6 +95,8 @@ def advise(request: dict, requester: dict, candidates: list[dict], client: Model
 
 
 def _settings() -> dict[str, str]:
+    if os.getenv("STUDYMATE_OFFLINE") == "1":
+        raise AdviseUnavailable("Offline demo: choose a room manually; model ranking is disabled.")
     values = {}
     path = Path(__file__).resolve().parent.parent / ".env"
     if path.exists():

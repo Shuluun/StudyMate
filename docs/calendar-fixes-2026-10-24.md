@@ -1,3 +1,5 @@
+> Historical integration note. For current startup, capabilities and verification, see [README](../README.md) and [status](status.md). Google Calendar routes are retired from the normal app.
+
 # Calendar timezone and room conflict fixes
 
 Base: `793e49b49e79e7b0530c14cd605ddfa67ff4c9c2` (main).
