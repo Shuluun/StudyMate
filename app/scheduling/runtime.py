@@ -1,6 +1,7 @@
 """Local persistent runtime. Replace repository/auth/session adapters at integration."""
 import os
 from dataclasses import dataclass
+from contextvars import ContextVar
 from functools import lru_cache
 from pathlib import Path
 from .adapters import TeamSessionGateway
@@ -8,6 +9,8 @@ from .core.service import ScheduleService
 from .core.storage import SQLiteScheduleRepository
 from .demo import seed_repository
 from .time import display_zone
+
+request_runtime = ContextVar("studymate_request_runtime", default=None)
 
 
 @dataclass
@@ -36,6 +39,9 @@ def _synthetic_runtime():
 
 
 def get_runtime():
+    isolated = request_runtime.get()
+    if isolated is not None:
+        return isolated
     from .context import live_context
     context = live_context()
     return context.runtime if context else _synthetic_runtime()

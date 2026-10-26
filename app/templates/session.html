@@ -28,7 +28,7 @@
       {% for turn in thread %}
       {% if not (question and loop.last and turn.role == 'assistant') %}
       <li class="thread-{{ turn.role }}">
-        <span class="meta">{% if turn.role == 'assistant' %}Omnara{% else %}You{% endif %}</span>
+        <span class="meta">{% if turn.role == 'assistant' %}{% if public_demo %}Local rules{% else %}Omnara{% endif %}{% else %}You{% endif %}</span>
         <p>{{ turn.text }}</p>
       </li>
       {% endif %}
@@ -36,7 +36,7 @@
     </ol>
     {% endif %}
     {% if question %}
-    <form method="post" action="/session/interpret" class="card stack">
+    <form method="post" action="/session/interpret" class="card stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       <label class="field">
         <span class="label">{{ question }}</span>
         <textarea name="reply" required></textarea>
@@ -48,7 +48,7 @@
       </div>
     </form>
     {% elif not ready %}
-    <form method="post" action="/session/interpret" class="card stack">
+    <form method="post" action="/session/interpret" class="card stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       <label class="field">
         <span class="label">What do you want to study?</span>
         <textarea name="sentence" placeholder="I want to study CS 61A on Thursday evening, not a library." required></textarea>

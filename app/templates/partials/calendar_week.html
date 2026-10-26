@@ -39,7 +39,7 @@
 <div id="calendar-editor" class="calendar-editor-backdrop" hidden>
 <section class="calendar-editor card" role="dialog" aria-modal="true" aria-labelledby="calendar-editor-title">
   <div class="cluster calendar-dialog-heading"><h2 id="calendar-editor-title">Create time</h2><button class="button quiet" id="calendar-editor-close" type="button" aria-label="Close time editor">×</button></div>
-  <form id="calendar-entry-form" method="post" action="/schedule/timetable" class="stack">
+  <form id="calendar-entry-form" method="post" action="/schedule/timetable" class="stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
     <input type="hidden" name="csrf_token" value="{{ editor_csrf }}">
     <input type="hidden" name="record_id" value="">
     <input type="hidden" name="entry_kind" value="free">

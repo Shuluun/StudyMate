@@ -13,7 +13,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TOP = {'README.md','LICENSE','CONTRIBUTORS.md','CONTRIBUTING.md','SECURITY.md',
-       '.gitignore','.env.example','.env.calendar.example','Setup-StudyMate.cmd','Start-StudyMate.cmd'}
+       '.gitignore','.env.example','.env.calendar.example','Setup-StudyMate.cmd','Start-StudyMate.cmd','render.yaml'}
 PREFIXES = {'app','docs','tests','tools','.github'}
 RULES = {
     'private-key': re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),

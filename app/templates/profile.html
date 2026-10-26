@@ -19,7 +19,7 @@
   <div class="callout good"><p>Your profile is saved.</p></div>
   {% endif %}
 
-  <form method="post" action="/profile" class="stack-lg">
+  <form method="post" action="/profile" class="stack-lg">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
     <fieldset class="stack">
       <legend class="section-title">School</legend>
       <div class="split">

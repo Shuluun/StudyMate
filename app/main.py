@@ -12,12 +12,13 @@ from app.web import BASE
 _OPEN = {"/", "/login", "/register", "/api/health"}
 
 
-def create_app(*, calendar_host=None):
+def create_app(*, calendar_host=None, public_demo=None):
     session_secret = os.getenv("STUDYMATE_SESSION_SECRET") or token_urlsafe(48)
     if not calendar_host and len(session_secret) < 32:
         raise ValueError("STUDYMATE_SESSION_SECRET must contain at least 32 characters")
     app = FastAPI(title="StudyMate")
     app.state.private_calendar_host = calendar_host
+    app.state.public_demo = public_demo
     if calendar_host:
         app.state.google_calendar_integration = calendar_host.active
     app.mount("/static", StaticFiles(directory=BASE / "static"), name="static")
@@ -34,6 +35,8 @@ def create_app(*, calendar_host=None):
 
     @app.middleware("http")
     async def require_login(request, call_next):
+        if public_demo is not None:
+            return await public_demo.handle(request, call_next)
         from secrets import token_urlsafe, compare_digest
         from .scheduling.context import calendar_context, local_subject
         path = request.url.path
@@ -81,7 +84,7 @@ def create_app(*, calendar_host=None):
 
     app.add_middleware(SessionMiddleware,
         secret_key=calendar_host.session_secret if calendar_host else session_secret,
-        session_cookie="studymate_private" if calendar_host else "session",
+        session_cookie="studymate_demo" if public_demo else "studymate_private" if calendar_host else "session",
         same_site="lax", https_only=not calendar_host and os.getenv("STUDYMATE_SECURE_COOKIES") == "1", max_age=8*60*60)
     return app
 

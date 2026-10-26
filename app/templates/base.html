@@ -18,11 +18,11 @@
         {% if not private_calendar %}<a href="/session" {% if nav == "session" %}aria-current="page"{% endif %}>Session</a>
         {% endif %}
       </nav>
-      <form method="post" action="/logout">{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+      <form method="post" action="/logout">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
         <button class="button quiet" type="submit">Log out {{ user.name.split()[0] }}</button>
       </form>
     </div>
-    {% else %}
+    {% elif not public_demo %}
     <nav class="site-nav" aria-label="Account">
       <a href="/login" {% if nav == "login" %}aria-current="page"{% endif %}>Log in</a>
       <a href="/register" {% if nav == "register" %}aria-current="page"{% endif %}>Create account</a>
@@ -30,8 +30,10 @@
     {% endif %}
   </header>
   <main class="page">
+    {% if public_demo %}<aside class="callout" style="margin-bottom:1rem"><strong>Interactive demo</strong> · Fictional data, private to this browser. Resets after 30 minutes of inactivity or a host restart. Use sample information only.</aside>{% endif %}
     {% block content %}{% endblock %}
   </main>
+  {% if public_demo %}<footer class="page hint" style="padding-top:1rem;padding-bottom:2rem">StudyMate is a team project by Dlna, Jiayang Wu, Marcrid, Jinan He, Shulun Gao and Shuluun (as credited in Git history). <a href="https://github.com/2635530141/Agent_Hackathon" rel="noopener">Original team repository</a> · <a href="https://github.com/Shuluun/StudyMate/blob/main/CONTRIBUTORS.md" rel="noopener">Contributions and credits</a> · <a href="https://github.com/Shuluun/StudyMate" rel="noopener">Source code</a>. Original MIT notice preserved. No real Google Calendar, email or model calls.</footer>{% endif %}
   {% block feature_scripts %}{% endblock %}
 </body>
 </html>

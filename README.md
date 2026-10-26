@@ -18,6 +18,10 @@ It is not a deployed campus service or a verified student directory.
 [Demo walkthrough](docs/demo.md) · [Verification](docs/verification.md) ·
 [Contributors](CONTRIBUTORS.md) · [Limitations](docs/status.md)
 
+For the browser-only, temporary guest experience, see [Public demo deployment](docs/public-demo.md).
+The public host runs the same team UI in separate visitor sandboxes; the persistent
+local demo below remains available for development.
+
 ## What you can do
 
 - **Build your profile.** Add courses, study preferences, group size, and a travel

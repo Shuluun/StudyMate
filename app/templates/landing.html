@@ -34,7 +34,7 @@
     {% endif %}
     {% if mode == "register" %}
     <h2 id="auth-title" class="section-title">Create an account</h2>
-    <form class="stack" method="post" action="/register">{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+    <form class="stack" method="post" action="/register">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       <label class="field">
         <span class="label">Name</span>
         <input name="name" autocomplete="name" required value="{{ full_name }}">
@@ -51,7 +51,7 @@
     </form>
     {% else %}
     <h2 id="auth-title" class="section-title">Sign in</h2>
-    <form class="stack" method="post" action="/login">{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
+    <form class="stack" method="post" action="/login">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}{% if private_calendar %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       <label class="field">
         <span class="label">Email</span>
         <input name="email" type="email" autocomplete="username" required value="{{ email }}">

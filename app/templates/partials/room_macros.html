@@ -28,7 +28,7 @@
 {% macro settings_panel(room) -%}
   <details class="room-settings"{% if selected and selected.id == room.id %} open{% endif %}>
     <summary>Room settings</summary>
-    <form method="post" action="/session/rooms/{{ room.id }}/settings" class="stack">
+    <form method="post" action="/session/rooms/{{ room.id }}/settings" class="stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       {{ keep_fields() }}
       <label class="field"><span class="label">Subject</span>
         <select name="room_course">
@@ -78,7 +78,7 @@
     {{ members(room) }}
     {% if flagged %}<p class="hint room-warning">Not recommended: the host's profile tries to instruct the assistant.</p>{% endif %}
     {% if mode == "mine" and user and room.host_id == user.id %}{{ settings_panel(room) }}{% endif %}
-    <form method="post" action="/session/rooms/{{ room.id }}/{% if mode == 'mine' or room.joined %}leave{% else %}join{% endif %}" class="room-action">
+    <form method="post" action="/session/rooms/{{ room.id }}/{% if mode == 'mine' or room.joined %}leave{% else %}join{% endif %}" class="room-action">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       {{ keep_fields() }}
       {% if mode == "mine" or room.joined %}
       <button class="button quiet" type="submit">Leave</button>

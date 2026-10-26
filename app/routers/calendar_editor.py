@@ -29,8 +29,10 @@ class Entry(BaseModel):
 def editor_csrf(request, form_token=None):
     expected = request.session.get("calendar_editor_csrf","")
     origin = request.headers.get("origin")
+    public_demo = getattr(request.app.state, "public_demo", None)
+    expected_origin = (public_demo.origin if public_demo else None) or f"{request.url.scheme}://{request.url.netloc}"
     if (not expected or not compare_digest(expected.encode(),(form_token or request.headers.get("x-csrf-token","")).encode())
-        or (origin and origin!=f"{request.url.scheme}://{request.url.netloc}")):
+        or (origin and origin != expected_origin)):
         raise HTTPException(403,"CSRF_REQUIRED")
 
 

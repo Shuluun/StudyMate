@@ -8,6 +8,7 @@ STUDYMATE_DB=memory keeps everything in memory instead (the tests set it).
 """
 
 import os
+from contextvars import ContextVar
 from functools import lru_cache
 from pathlib import Path
 
@@ -16,6 +17,7 @@ from sqlalchemy.dialects import postgresql, sqlite
 
 ROOT = Path(__file__).resolve().parent.parent
 LOCAL_URL = f"sqlite+pysqlite:///{(ROOT / 'data' / 'studymate.db').as_posix()}"
+request_engine = ContextVar("studymate_request_engine", default=None)
 
 metadata = MetaData()
 # Same table and columns as the private calendar host's PersistentAccounts.
@@ -72,6 +74,9 @@ def cloud_url() -> str:
 
 
 def url() -> str:
+    isolated = request_engine.get()
+    if isolated is not None:
+        return str(isolated.url)
     return cloud_url() or LOCAL_URL
 
 
@@ -118,6 +123,9 @@ def _engine_for(database_url: str):
 
 
 def engine():
+    isolated = request_engine.get()
+    if isolated is not None:
+        return isolated
     return _engine_for(url())
 
 

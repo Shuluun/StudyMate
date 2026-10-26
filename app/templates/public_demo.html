@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Try StudyMate{% endblock %}
+{% block content %}
+<section class="card stack" style="max-width:48rem;margin:2rem auto">
+  <p class="eyebrow">A team project · interactive demo</p>
+  <h1 class="title">Make time to study together.</h1>
+  <p>Explore an editable weekly schedule, check time conflicts, find a study room and see joined sessions appear on your calendar.</p>
+  <p>You will play Maya, a fictional student. Your browser gets its own temporary copy of the demo. Other visitors cannot see your changes.</p>
+  <form method="post" action="/demo/start"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="button primary" type="submit">Try the demo</button></form>
+  <p class="hint">Use sample information only. Changes expire after 30 minutes of inactivity and reset when the host restarts. Google Calendar, email and model calls are disabled; session discovery uses local rules and fixtures.</p>
+</section>
+{% endblock %}

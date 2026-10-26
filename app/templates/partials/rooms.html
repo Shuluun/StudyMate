@@ -33,7 +33,7 @@
   {% set details = new_place_details | default({}) %}
   <details class="room-create card"{% if not open_rooms %} open{% endif %}>
     <summary>{% if open_rooms %}None of these? Open your own room{% else %}Open your own room{% endif %}</summary>
-    <form method="post" action="/session/rooms" class="stack">
+    <form method="post" action="/session/rooms" class="stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
       {% if anytime %}
       <p>{{ new_place }}. Choose the time yourself; you become the host.</p>
       {% else %}

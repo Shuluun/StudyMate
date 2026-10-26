@@ -13,6 +13,7 @@ def render(request: Request, name: str, **context):
         user = request.session.get("user")
     payload = {"request": request, "nav": context.pop("nav", ""), "user": user,
         "private_calendar":bool(getattr(request.app.state,"private_calendar_host",None)),
+        "public_demo":bool(getattr(request.app.state,"public_demo",None)),
         "csrf_token":request.session.get("calendar_editor_csrf","") if "session" in request.scope else "", **context}
     try:
         return templates.TemplateResponse(request, name, payload)

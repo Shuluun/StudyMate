@@ -328,22 +328,23 @@ def add_course(course: dict) -> None:
 # finished profile is someone matching can compare against.
 
 _profiles: dict[str, dict] = {}  # Accounts made in memory mode, by id.
-_cache: dict[str, tuple[float, object]] = {}
+_cache: dict[tuple[str, str], tuple[float, object]] = {}
 _seeded: set[str] = set()
 CACHE_SECONDS = 3
 
 
 def _cached(name: str, load):
-    hit = _cache.get(name)
+    key = (db.url(), name)
+    hit = _cache.get(key)
     if hit and hit[0] > time.monotonic():
         return hit[1]
     value = load()
-    _cache[name] = (time.monotonic() + CACHE_SECONDS, value)
+    _cache[key] = (time.monotonic() + CACHE_SECONDS, value)
     return value
 
 
 def _forget(name: str) -> None:
-    _cache.pop(name, None)
+    _cache.pop((db.url(), name), None)
 
 
 def _ensure_seeded() -> None:
@@ -358,7 +359,7 @@ def _ensure_seeded() -> None:
         for course in COURSES:
             db.save_course(course)
     if db.seed_once("rooms-v1"):
-        db.save_rooms(deepcopy(_rooms), set())
+        db.save_rooms(deepcopy(_seed_rooms), set())
 
 
 def current_id() -> str:
@@ -728,18 +729,19 @@ def _fill_open_rooms() -> None:
 
 
 _fill_open_rooms()
+_seed_rooms = deepcopy(_rooms)
 
 
-_room_rankings: dict[str, dict] = {}
+_room_rankings: dict[tuple[str, str], dict] = {}
 
 
 def cached_ranking(key: str) -> dict | None:
     """The model's room order for one request and set of open rooms."""
-    return deepcopy(_room_rankings.get(key))
+    return deepcopy(_room_rankings.get((db.url(), key)))
 
 
 def cache_ranking(key: str, ranking: dict) -> None:
-    _room_rankings[key] = deepcopy(ranking)
+    _room_rankings[(db.url(), key)] = deepcopy(ranking)
 
 
 _room_lock = threading.RLock()
