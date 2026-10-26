@@ -42,7 +42,7 @@
   <form id="calendar-entry-form" method="post" action="/schedule/timetable" class="stack">{% if public_demo %}<input type="hidden" name="csrf_token" value="{{ csrf_token }}">{% endif %}
     <input type="hidden" name="csrf_token" value="{{ editor_csrf }}">
     <input type="hidden" name="record_id" value="">
-    <input type="hidden" name="entry_kind" value="free">
+    <input type="hidden" name="entry_kind" value="busy">
     <label class="field"><span class="label">Type</span><select name="kind"><option value="busy">Unavailable</option><option value="exam">Exam</option></select></label>
     <label class="field" id="calendar-course-field"><span class="label">Course</span>{% if private_calendar %}<input name="course_id" placeholder="Course or exam label" maxlength="80">{% else %}<select name="course_id">{% for course in courses %}<option value="{{ course.id }}">{{ course.code }}</option>{% endfor %}</select>{% endif %}</label>
     <label class="field"><span class="label">Starts ({{ timezone }})</span><input type="datetime-local" name="starts_at" required></label>

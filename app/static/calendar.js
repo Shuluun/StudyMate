@@ -40,7 +40,7 @@
     sessionLink.hidden=!readonly || !entry.session_url;
     if(!sessionLink.hidden) sessionLink.href=entry.session_url;
     document.getElementById("calendar-editor-title").textContent=readonly ? entry.label : editing ? "Edit time" : "Create time";
-    field("kind").value=readonly ? "busy" : entry.kind || "busy";
+    field("kind").value=readonly || !["busy","exam"].includes(entry.kind) ? "busy" : entry.kind;
     field("starts_at").value=entry.starts_at; field("ends_at").value=entry.ends_at;
     field("record_id").value=entry.id || "";
     field("priority_starts_at").value=entry.priority_starts_at || "";
@@ -205,16 +205,16 @@
     const day=drag.column.dataset.date, a=Math.min(drag.start,drag.end),b=Math.max(drag.start,drag.end)+1;
     selection.remove(); drag=null;
     document.getElementById("calendar-selection-status").textContent="Selected "+day+" "+clock(a)+"–"+(b===48?"24:00":clock(b));
-    openEditor({kind:"free",starts_at:datetime(day,a),ends_at:datetime(day,b)});
+    openEditor({kind:"busy",starts_at:datetime(day,a),ends_at:datetime(day,b)});
   });
   document.addEventListener("pointercancel",()=>{if(selection) selection.remove();drag=null;});
   grid.querySelectorAll(".cal-slot").forEach(slot=>slot.onclick=event=>{
     if (event.detail===0 || event.pointerType==="touch") {
       const half=Number(slot.dataset.half),day=slot.parentElement.dataset.date;
-      openEditor({kind:"free",starts_at:datetime(day,half),ends_at:datetime(day,half+1)});
+      openEditor({kind:"busy",starts_at:datetime(day,half),ends_at:datetime(day,half+1)});
     }
   });
-  document.getElementById("calendar-create").onclick=()=>openEditor({kind:"free",
+  document.getElementById("calendar-create").onclick=()=>openEditor({kind:"busy",
     starts_at:week.days[activeDay].date+"T13:00",ends_at:week.days[activeDay].date+"T14:00"});
   document.getElementById("calendar-editor-close").onclick=closeEditor;
   document.addEventListener("keydown",event=>{

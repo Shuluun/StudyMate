@@ -96,6 +96,10 @@ class PublicDemo:
             if len(body) > 65536:
                 return JSONResponse({"detail": "DEMO_INPUT_TOO_LARGE"}, 413)
             if not await self.csrf_ok(request):
+                if path == "/demo/start":
+                    # A cold start/redeploy can invalidate the old landing cookie.
+                    # Refresh the form without creating or changing any sandbox.
+                    return RedirectResponse("/?session=refreshed", 303)
                 return JSONResponse({"detail": "CSRF_REQUIRED"}, 403)
         # Retired invitations use process-wide fixture state. They are not part
         # of the room board and must not be exposed by this multi-visitor host.

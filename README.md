@@ -2,6 +2,9 @@
 
 [![Tests](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml/badge.svg)](https://github.com/Shuluun/StudyMate/actions/workflows/tests.yml)
 
+**[Try the live demo](https://studymate-shuluun.onrender.com)** — no account or API key needed.
+Free hosting may take about a minute to wake up. Each visitor gets temporary fictional data.
+
 **A study-group planner that checks availability before suggesting a session.**
 
 StudyMate brings student profiles, an editable timetable, room discovery, and group

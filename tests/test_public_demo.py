@@ -69,7 +69,9 @@ def test_forms_have_csrf_credits_and_no_real_account_signup(public_app):
         assert "Original team repository" in page.text and "Jiayang Wu" in page.text
         assert "Create account" not in page.text
         assert "secure" in page.headers["set-cookie"].lower() and "httponly" in page.headers["set-cookie"].lower()
-        assert client.post("/demo/start").status_code == 403
+        refused = client.post("/demo/start", follow_redirects=False)
+        assert refused.status_code == 303 and refused.headers["location"] == "/?session=refreshed"
+        assert not public_app.state.public_demo.sandboxes
         token = start(client)
         for path in ("/profile", "/session", "/schedule"):
             page = client.get(path)

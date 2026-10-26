@@ -4,6 +4,7 @@
 <section class="card stack" style="max-width:48rem;margin:2rem auto">
   <p class="eyebrow">A team project · interactive demo</p>
   <h1 class="title">Make time to study together.</h1>
+  {% if request.query_params.get('session') == 'refreshed' %}<p class="callout">The demo restarted while this page was open. Choose “Try the demo” to start a fresh copy.</p>{% endif %}
   <p>Explore an editable weekly schedule, check time conflicts, find a study room and see joined sessions appear on your calendar.</p>
   <p>You will play Maya, a fictional student. Your browser gets its own temporary copy of the demo. Other visitors cannot see your changes.</p>
   <form method="post" action="/demo/start"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="button primary" type="submit">Try the demo</button></form>
